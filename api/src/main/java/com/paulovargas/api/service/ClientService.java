@@ -161,7 +161,15 @@ public class ClientService {
     }
 
     private UserType defaultUserType(UserType userType) {
-        return userType == null ? UserType.BUYER : userType;
+        if (userType == null) {
+            return UserType.BUYER;
+        }
+
+        if (userType == UserType.ADMIN) {
+            throw new IllegalArgumentException("Admin users cannot be created through public registration.");
+        }
+
+        return userType;
     }
 
     private String normalizeEmail(String email) {
