@@ -45,7 +45,7 @@ export class LoginComponent {
 
     this.authService.login(this.form.getRawValue()).subscribe({
       next: () => {
-        void this.router.navigate(['/clientes']);
+        void this.router.navigate(['/backoffice']);
       },
       error: () => {
         this.errorMessage = 'E-mail ou senha invalidos.';

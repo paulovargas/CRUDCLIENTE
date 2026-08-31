@@ -1,22 +1,26 @@
 import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth.guard';
+import { LoginComponent } from './features/auth/pages/login/login.component';
+import { BackofficeComponent } from './features/backoffice/backoffice.component';
+import { ClientTableComponent } from './features/backoffice/clients/pages/client-table/client-table.component';
 
 export const routes: Routes = [
   {
     path: 'login',
-    loadComponent: () =>
-      import('./features/auth/pages/login/login.component').then(
-        (component) => component.LoginComponent
-      )
+    component: LoginComponent
   },
   {
-    path: 'clientes',
+    path: 'backoffice',
+    component: BackofficeComponent,
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./features/clients/pages/client-list/client-list.component').then(
-        (component) => component.ClientListComponent
-      )
+    children: [
+      {
+      path: 'clientes',
+      component: ClientTableComponent,
+      outlet: 'main',
+    },
+    ]    
   },
   {
     path: '',
