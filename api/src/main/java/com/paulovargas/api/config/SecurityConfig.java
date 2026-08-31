@@ -49,6 +49,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/clients", "/api/users").permitAll()
                 .antMatchers("/api/addresses/**", "/api/clients/*/addresses/**").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/menus/me").authenticated()
+                .antMatchers("/api/menus/**").hasRole("ADMIN")
                 .antMatchers("/api/clients/**", "/api/users/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
